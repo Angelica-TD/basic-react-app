@@ -1,6 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useUser from "./hooks/useUser";
+import { getAuth, signOut } from "firebase/auth";
 
 const NavBar = () => {
+
+    const { user, isLoading } = useUser();
+    const navigate = useNavigate();
+
+    const logout = async ()=>{
+        await signOut(getAuth());
+        navigate('/');
+    }
+
     return (
         <nav>
 
@@ -14,6 +25,22 @@ const NavBar = () => {
                 <li>
                     <Link to="/articles">Articles</Link>
                 </li>
+
+                <li>
+                {user
+                    ? <button onClick={logout}>Logout</button>
+                    :   <ul>
+                            <li>
+                                <Link to="/login">Log in</Link>
+                            </li>
+                            <li>
+                                <Link to="/create-account">Create an acount</Link>
+                            </li>
+                        </ul>
+                }
+                </li>
+
+
             </ul>
 
         </nav>
