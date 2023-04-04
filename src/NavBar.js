@@ -4,7 +4,7 @@ import { getAuth, signOut } from "firebase/auth";
 
 const NavBar = () => {
 
-    const { user, isLoading } = useUser();
+    const { user } = useUser();
     const navigate = useNavigate();
 
     const logout = async ()=>{
